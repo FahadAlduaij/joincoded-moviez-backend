@@ -53,7 +53,7 @@ exports.createMovie = async (req, res, next) => {
         //     }
         // }
 
-        req.body.
+        // req.body.
         req.body.genre = req.genres
         const newMovie = await Movie.create(req.body)
         await newMovie.populate({path: 'genre', select: 'genre'})
