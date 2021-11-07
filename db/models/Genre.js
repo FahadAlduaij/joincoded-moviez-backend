@@ -3,6 +3,7 @@ const { Schema, model } = require("mongoose");
 const GenreSchema = Schema({
     genre: {
         type: String,
+        unique: true,
     },
     movies: [{
         type: Schema.Types.ObjectId,

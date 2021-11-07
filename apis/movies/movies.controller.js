@@ -1,4 +1,5 @@
 const Movie = require('../../db/models/Movie');
+const Genre = require('../../db/models/Genre')
 
 exports.getMovieList = async (req, res, next) => {
     try {
@@ -14,6 +15,26 @@ exports.createMovie = async (req, res, next) => {
         if (req.file) {
             req.body.image = `http://${req.get("host")}/media/${req.file.filename}`
         }
+        const genres = req.body.genre
+        console.log(genres)
+
+        req.genres = []
+
+        for (const genreName of genres) {
+            const genre = {
+                genre: genreName,
+                movies: [],
+                celebrities: []
+            }
+            const foundGenre = await Genre.findOne(genre);
+            console.log(foundGenre)
+            if (!foundGenre) {
+                const newGenre = await Genre.create(genre);
+                req.genres.push(newGenre._id)
+            }
+        }
+
+        req.body.genre = req.genres
         const newMovie = await Movie.create(req.body)
         res.status(201).json(newMovie)
     } catch (error) {
