@@ -11,7 +11,7 @@ const connectDB = require("./database");
 const { errorHandler } =require('./middleware/errorHandler');
 
 //ROUTE IMPORTS
-const userRoutes = require("./apis/routes/user.routes");
+const userRoutes = require("./apis/users/user.routes");
 
 
 const app = express();
