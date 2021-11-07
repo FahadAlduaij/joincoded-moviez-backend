@@ -7,11 +7,11 @@ const morgan = require('morgan');
 const cors = require('cors');
 
 //DB AND ERRORHANDLING MIDDLEWARE
-const connectDB = require("./config/db");
+const connectDB = require("./database");
 const { errorHandler } =require('./middleware/errorHandler');
 
 //ROUTE IMPORTS
-const userRoutes = require("./routes/user.routes");
+const userRoutes = require("./apis/routes/user.routes");
 
 
 const app = express();

@@ -1,4 +1,4 @@
-const errorHandler = (err, req, res, next) => {
+exports.errorHandler = (err, req, res, next) => {
     res.status(
         err.status || 500
     ).json(
@@ -6,5 +6,3 @@ const errorHandler = (err, req, res, next) => {
         message: "Something Broke! Internal Server Error!"
     })
 }
-
-module.exports = errorHandler
