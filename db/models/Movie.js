@@ -11,7 +11,7 @@ const MovieSchema = Schema({
     }],
     celebrities: [{ type: Schema.Types.ObjectId, ref: 'Celebrity' }],
 },
-    {timestamps: true}
-)
+    { timestamps: true }
+);
 //Check how to create ratings, one per user and calculate average... same with comments
-module.exports = model("Movie", MovieSchema)
+module.exports = model("Movie", MovieSchema);
