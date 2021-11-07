@@ -11,7 +11,8 @@ const UserSchema = Schema({
     email: {
         type: String,
         match: /.+\@.+\..+/,
-        required: true
+        required: true,
+        unique: true
     },
     isAdmin: {
         type: Boolean,

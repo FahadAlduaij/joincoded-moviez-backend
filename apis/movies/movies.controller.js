@@ -15,20 +15,15 @@ exports.createMovie = async (req, res, next) => {
         if (req.file) {
             req.body.image = `http://${req.get("host")}/media/${req.file.filename}`
         }
-        const genres = req.body.genre
-        console.log(genres)
-
-        req.genres = []
-
-        for (const genreName of genres) {
-            const genre = {
-                genre: genreName,
-                movies: [],
-                celebrities: []
-            }
+        req.genres = [];
+        for (const genreName of req.body.genre) {
             const foundGenre = await Genre.findOne(genre);
-            console.log(foundGenre)
             if (!foundGenre) {
+                const genre = {
+                    genre: genreName,
+                    movies: [],
+                    celebrities: []
+                }
                 const newGenre = await Genre.create(genre);
                 req.genres.push(newGenre._id)
             }
@@ -36,6 +31,7 @@ exports.createMovie = async (req, res, next) => {
 
         req.body.genre = req.genres
         const newMovie = await Movie.create(req.body)
+
         res.status(201).json(newMovie)
     } catch (error) {
         next(error)
