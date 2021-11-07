@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const GenreSchema = Schema({
-    genre: {
+    genreName: {
         type: String,
         unique: true,
     },
