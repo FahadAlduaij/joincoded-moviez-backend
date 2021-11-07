@@ -30,7 +30,7 @@ exports.createMovie = async (req, res, next) => {
 				movies: [],
 				celebrities: [],
 			};
-			const foundGenre = await Genre.findOne({ genre: `${genreName}` });
+			const foundGenre = await Genre.findOne({ genreName: `${genreName}` });
 			if (!foundGenre) {
 				const newGenre = await Genre.create(genreObj);
 				req.genres.push(newGenre._id);
