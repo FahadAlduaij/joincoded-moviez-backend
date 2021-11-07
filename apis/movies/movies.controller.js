@@ -10,28 +10,61 @@ exports.getMovieList = async (req, res, next) => {
     }
 };
 
+
+//Need to check for celebrities
 exports.createMovie = async (req, res, next) => {
     try {
         if (req.file) {
             req.body.image = `http://${req.get("host")}/media/${req.file.filename}`
         }
         req.genres = [];
+        req.celebrities = [];
+
+        //Checking for genres and creating if they dont exist, then adding genre id to req.genres
         for (const genreName of req.body.genre) {
-            const genre = {
-                genre: genreName.toLowerCase(),
+            genreName.toLowerCase()
+            const genreObj = {
+                genre: genreName,
                 movies: [],
                 celebrities: []
             }
-            const foundGenre = await Genre.findOne(genre);
+            const foundGenre = await Genre.findOne({ genre: `${genreName}` });
             if (!foundGenre) {
-
-                const newGenre = await Genre.create(genre);
+                const newGenre = await Genre.create(genreObj);
                 req.genres.push(newGenre._id)
+            } else {
+                req.genres.push(foundGenre._id)
             }
         }
 
+        // for (const celebrityName of req.body.celebrities) {
+        //     genreName.toLowerCase()
+        //     const genreObj = {
+        //         genre: genreName,
+        //         movies: [],
+        //         celebrities: []
+        //     }
+        //     const foundGenre = await Genre.findOne({ name: `${celebrityName}` });
+        //     if (!foundGenre) {
+        //         const newGenre = await Genre.create(genreObj);
+        //         req.genres.push(newGenre._id)
+        //     } else {
+        //         req.genres.push(foundGenre._id)
+        //     }
+        // }
+
+        req.body.
         req.body.genre = req.genres
         const newMovie = await Movie.create(req.body)
+        await newMovie.populate({path: 'genre', select: 'genre'})
+
+        // Adding Created movies by id to genres
+        for (const genre of req.body.genre) {
+            const foundGenre = await Genre.findByIdAndUpdate(
+                { _id: genre._id },
+                { $push: { movies: newMovie._id } }
+            );
+        }
 
         res.status(201).json(newMovie)
     } catch (error) {
