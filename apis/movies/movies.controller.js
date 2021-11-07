@@ -15,6 +15,7 @@ exports.createMovie = async (req, res, next) => {
             req.body.image = `http://${req.get("host")}/media/${req.file.filename}`
         }
         const newMovie = await Movie.create(req.body)
+        res.status(201).json(newMovie)
     } catch (error) {
         next(error)
     }

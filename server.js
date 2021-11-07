@@ -28,9 +28,11 @@ app.use("/media", express.static(path.join(__dirname, "media")));
 
 //ROUTE IMPORTS
 const userRoutes = require("./apis/users/user.routes");
+const moviesRoutes = require("./apis/movies/movies.routes");
 
 //ROUTES
 app.use("/api/user", userRoutes)
+app.use("/api/movies", moviesRoutes)
 
 app.use(errorHandler);
 
