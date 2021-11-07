@@ -1,3 +1,4 @@
+require('dotenv').config()
 const bcrypt = require("bcrypt")
 const JWTStrategy = require("passport-jwt").Strategy
 const { fromAuthHeaderAsBearerToken } = require("passport-jwt").ExtractJwt
@@ -24,7 +25,7 @@ exports.localStrategy = new LocalStrategy(
 
 exports.JWTStrategy = new JWTStrategy({
     jwtFromRequest: fromAuthHeaderAsBearerToken(),
-    secretOrKey: JWT_SECRET
+    secretOrKey: process.env.JWT_SECRET
     },
     async (payload, done) => {
         if (Date.now() > payload.exp) {
