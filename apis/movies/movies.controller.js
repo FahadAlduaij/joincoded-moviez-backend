@@ -17,13 +17,14 @@ exports.createMovie = async (req, res, next) => {
         }
         req.genres = [];
         for (const genreName of req.body.genre) {
+            const genre = {
+                genre: genreName.toLowerCase(),
+                movies: [],
+                celebrities: []
+            }
             const foundGenre = await Genre.findOne(genre);
             if (!foundGenre) {
-                const genre = {
-                    genre: genreName,
-                    movies: [],
-                    celebrities: []
-                }
+
                 const newGenre = await Genre.create(genre);
                 req.genres.push(newGenre._id)
             }
