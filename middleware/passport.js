@@ -28,7 +28,8 @@ exports.JWTStrategy = new JWTStrategy({
     secretOrKey: process.env.JWT_SECRET
     },
     async (payload, done) => {
-        if (Date.now() > payload.exp) {
+        const exp = payload.exp * 1000
+        if (Date.now() > exp) {
             return done(null, false)
         }
         try {
