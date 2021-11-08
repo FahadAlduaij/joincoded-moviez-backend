@@ -8,8 +8,6 @@ const User = require("../db/models/User")
 
 exports.localStrategy = new LocalStrategy(
     async (username, password, done) => {
-        console.log(username),
-        console.log(password)
         try {
             const user = await User.findOne({ username: username });
             const passwordMath = user ? await bcrypt.compare(password, user.password) : false;
@@ -28,7 +26,8 @@ exports.JWTStrategy = new JWTStrategy({
     secretOrKey: process.env.JWT_SECRET
     },
     async (payload, done) => {
-        if (Date.now() > payload.exp) {
+        const exp = payload.exp * 1000
+        if (Date.now() > exp) {
             return done(null, false)
         }
         try {
