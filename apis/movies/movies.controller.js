@@ -7,7 +7,7 @@ exports.getMovieList = async (req, res, next) => {
 		const movieList = await Movie.find().populate({
 			path: "genres",
 			select: "genreName",
-		});
+		}).populate({ path: "celebrities", select: "name" });
 		return res.status(200).json(movieList);
 	} catch (error) {
 		next(error);
