@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require("passport");
 const { getMovieList, createMovie } = require('./movies.controller');
 const router = express.Router();
 const upload = require('../../middleware/multer')
@@ -8,7 +9,7 @@ const upload = require('../../middleware/multer')
 
 
 router.get('/', getMovieList);
-router.post('/', upload.single('image'), createMovie);
+router.post('/', passport.authenticate('jwt', {session: false}), upload.single('image'), createMovie);
 
 
 
