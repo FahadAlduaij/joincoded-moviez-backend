@@ -18,58 +18,10 @@ exports.getMovieList = async (req, res, next) => {
 exports.createMovie = async (req, res, next) => {
 	try {
 		//Checking is user is admin
-		if(!req.user.isAdmin) return next({status: 401, message: "Not admin user"})
-
 		if (req.file) {
 			req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
 		}
 
-		//Temporary array for genres and celebs id
-		req.genres = [];
-		req.celebrities = [];
-		
-		//Checking for genres (string or array) and creating if they dont exist, then adding genre id to req.genres
-		if(req.body.genres && req.body.genres.length >= 1){
-			if (typeof req.body.genres === 'string') {
-				const foundGenre = await Genre.findOne({ genreName: `${req.body.genres.toLowerCase()}` });
-				if (!foundGenre) return next({ status: 404, message: "Genre Not Found!" })
-				req.genres.push(foundGenre._id)
-			} else {
-				for (const genreName of req.body.genres) {
-					genreName.toLowerCase();
-					const foundGenre = await Genre.findOne({ genreName: `${genreName}` });
-					if (foundGenre) {
-						req.genres.push(foundGenre._id);
-					} else {
-						return next({status: 404, message: 'Genres Not Found!'})
-					}
-				}
-			}
-		}
-
-		//Checking for celebrities (string or array) and creating if they dont exist, then adding celebrity id to req.celebrities
-		if (req.body.celebrities && req.body.celebrities.length >= 1) {
-			if (typeof req.body.celebrities === 'string') {
-				const foundCeleb = await Celebrity.findOne({ name: `${req.body.celebrities.toLowerCase()}` });
-				if (!foundCeleb) return next({ status: 404, message: "Genre Not Found!" })
-				req.celebrities.push(foundCeleb._id)
-			} else {
-				for (const celebName of req.body.celebrities) {
-					celebName.toLowerCase();
-					const foundCeleb = await Celebrity.findOne({ name: `${celebName}` });
-					if (foundCeleb) {
-						req.celebrities.push(foundCeleb._id);
-					} else {
-						return next({status: 404, message: 'celebrities Not Found!'})
-					}
-				}
-			}
-		}
-
-
-		//Creating Movie in Database
-		req.body.genres = req.genres;
-		req.body.celebrities = req.celebrities;
 		const newMovie = await Movie.create(req.body);
 		await newMovie.populate({ path: "genres", select: "genreName" });
 		await newMovie.populate({ path: "celebrities", select: "name" })
