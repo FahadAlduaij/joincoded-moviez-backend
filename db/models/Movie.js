@@ -6,7 +6,11 @@ const MovieSchema = Schema(
 			type: String,
 		},
 		image: String,
-		releaseDate: Date,
+		releaseDate: {
+			type: Number,
+			min: 1850,
+			max: 2050
+		},
 		genres: [
 			{
 				type: Schema.Types.ObjectId,
