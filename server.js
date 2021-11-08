@@ -34,7 +34,7 @@ const genreRoutes = require("./apis/genres/genres.routes")
 //ROUTES
 app.use("/api/user", userRoutes)
 app.use("/api/movies", moviesRoutes)
-app.use('/genres', genreRoutes)
+app.use('/api/genres', genreRoutes)
 
 app.use(errorHandler);
 
