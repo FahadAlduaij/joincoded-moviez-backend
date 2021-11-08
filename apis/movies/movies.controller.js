@@ -72,7 +72,7 @@ exports.createMovie = async (req, res, next) => {
 		req.body.celebrities = req.celebrities;
 		const newMovie = await Movie.create(req.body);
 		await newMovie.populate({ path: "genres", select: "genreName" });
-
+		await newMovie.populate({ path: "celebrities", select: "name" })
 		// Adding Created movies by id to genres
 		for (const genre of req.body.genres) {
 			await Genre.findByIdAndUpdate(
