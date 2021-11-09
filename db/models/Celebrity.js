@@ -12,8 +12,7 @@ const CelebritySchema = Schema({
     movies: [{
         type: Schema.Types.ObjectId,
         ref: 'Movie'
-    }],
-    genres: [{ type: Schema.Types.ObjectId, ref: 'Genre' }],
+    }]
 },
     {timestamps: true}
 )
