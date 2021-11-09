@@ -9,14 +9,14 @@ exports.checkCelebForMovie = async (req, res, next) => {
     if (req.body.celebrities && req.body.celebrities.length >= 1) {
       if (typeof req.body.celebrities === "string") {
         const foundCeleb = await Celebrity.findOne({
-          name: `${req.body.celebrities.toLowerCase()}`,
+          name: `${req.body.celebrities.toUpperCase()}`,
         });
         if (!foundCeleb)
           return next({ status: 404, message: "celebrity Not Found!" });
         celebrities.push(foundCeleb._id);
       } else {
         for (const celebName of req.body.celebrities) {
-          celebName.toLowerCase();
+          celebName.toUpperCase();
           const foundCeleb = await Celebrity.findOne({ name: `${celebName}` });
           if (foundCeleb) {
             celebrities.push(foundCeleb._id);
