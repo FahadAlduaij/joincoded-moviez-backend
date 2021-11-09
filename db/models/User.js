@@ -4,9 +4,11 @@ const UserSchema = Schema({
     username: {
         type: String,
         unique: true,
+        required: true,
     },
     password: {
         type: String,
+        required: true,
     },
     email: {
         type: String,
@@ -14,7 +16,7 @@ const UserSchema = Schema({
         required: true,
         unique: true
     },
-    isAdmin: {
+    admin: {
         type: Boolean,
         default: false,
     },
