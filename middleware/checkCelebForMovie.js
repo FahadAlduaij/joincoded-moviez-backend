@@ -5,6 +5,10 @@ exports.checkCelebForMovie = async (req, res, next) => {
   const genres = [];
   try {
     const celebrities = [];
+
+    if (req.body.celebrities.includes(",")) {
+      req.body.celebrities = req.body.celebrities.split(",");
+    }
     //Checking for celebrities (string or array) and creating if they dont exist, then adding celebrity id to req.celebrities
     if (req.body.celebrities && req.body.celebrities.length >= 1) {
       if (typeof req.body.celebrities === "string") {
