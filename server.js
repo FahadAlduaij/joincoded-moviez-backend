@@ -29,11 +29,15 @@ app.use("/media", express.static(path.join(__dirname, "media")));
 const userRoutes = require("./apis/users/user.routes");
 const moviesRoutes = require("./apis/movies/movies.routes");
 const genreRoutes = require("./apis/genres/genres.routes");
+const celebrityRoutes = require("./apis/celebrity/celebrity.routes");
+
 
 //ROUTES
-app.use("/api/user", userRoutes);
+app.use("/api/", userRoutes);
 app.use("/api/movies", moviesRoutes);
 app.use("/api/genres", genreRoutes);
+app.use("/api/celebrities", celebrityRoutes);
+
 
 app.use(errorHandler);
 
