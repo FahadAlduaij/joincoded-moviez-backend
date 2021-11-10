@@ -88,7 +88,10 @@ exports.addCommentToMovie = async (req, res, next) => {
         runValidators: true,
       }
     );
-    return res.status(200).json(updatedComments);
+
+    return res
+      .status(200)
+      .json(updatedComments.comments[updatedComments.comments.length - 1]);
   } catch (error) {
     next(error);
   }
