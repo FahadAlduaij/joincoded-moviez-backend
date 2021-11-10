@@ -2,7 +2,7 @@ const Genre = require("../../db/models/Genre");
 
 exports.getGenreList = async (req, res, next) => {
     try {
-        const genreList = await Genre.find().populate('movies').populate('celebrities')
+        const genreList = await Genre.find().populate({path: "movies" , populate: {path: "genres" , populate: "movies"}}).populate('celebrities')
         return res.status(200).json(genreList)
     } catch (error) {
         next(error)
