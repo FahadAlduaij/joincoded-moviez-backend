@@ -80,6 +80,7 @@ exports.createMovie = async (req, res, next) => {
 exports.addCommentToMovie = async (req, res, next) => {
   try {
     req.body.user = req.user._id;
+    req.body.username = req.user.username;
     const updatedComments = await Movie.findByIdAndUpdate(
       req.movie,
       { $push: { comments: req.body } },

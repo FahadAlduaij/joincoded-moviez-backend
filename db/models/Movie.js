@@ -32,6 +32,7 @@ const MovieSchema = Schema(
           required: true,
           trim: true,
         },
+        username: String,
         message: { type: String, required: true },
         dateSent: { type: Date, default: Date.now },
       },
