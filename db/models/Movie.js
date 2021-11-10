@@ -5,6 +5,7 @@ const MovieSchema = Schema(
   {
     title: {
       type: String,
+      trim: true,
     },
     image: String,
     releaseDate: {
@@ -25,14 +26,19 @@ const MovieSchema = Schema(
     description: String,
     comments: [
       {
-        user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+        user: {
+          type: Schema.Types.ObjectId,
+          ref: "User",
+          required: true,
+          trim: true,
+        },
         message: { type: String, required: true },
       },
     ],
-    // usersWhoRated: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    // userRatings: [{ type: Number }],
-    // userRatingsSum: Number,
-    // avgRating: Number,
+    usersWhoRated: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    userRatings: [{ type: Number }],
+    userRatingsSum: Number,
+    avgRating: Number,
   },
   { timestamps: true }
 );
