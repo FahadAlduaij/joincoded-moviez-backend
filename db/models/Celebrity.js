@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const mongooseSlugPlugin = require("mongoose-slug-plugin");
 
 const CelebritySchema = Schema(
   {
@@ -22,4 +23,5 @@ const CelebritySchema = Schema(
   { timestamps: true }
 );
 
+CelebritySchema.plugin(mongooseSlugPlugin, { tmpl: "<%=name%>" });
 module.exports = model("Celebrity", CelebritySchema);
