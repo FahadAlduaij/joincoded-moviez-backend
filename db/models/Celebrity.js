@@ -6,6 +6,8 @@ const CelebritySchema = Schema(
     name: {
       type: String,
       required: true,
+      unique: true,
+      trim: true,
     },
     age: {
       type: Number,
@@ -17,7 +19,7 @@ const CelebritySchema = Schema(
         ref: "Movie",
       },
     ],
-    bio: String,
+    bio: { type: String, trim: true },
     image: String,
   },
   { timestamps: true }
