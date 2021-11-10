@@ -33,6 +33,7 @@ const MovieSchema = Schema(
           trim: true,
         },
         message: { type: String, required: true },
+        dateSent: { type: Date, default: Date.now },
       },
     ],
     usersWhoRated: [{ type: Schema.Types.ObjectId, ref: "User" }],
