@@ -14,8 +14,10 @@ const { checkCelebForMovie } = require("../../middleware/checkCelebForMovie");
 
 router.param("movieId", async (req, res, next, movieId) => {
   const movie = await findMovie(movieId, next);
+
   if (movie) {
     req.movie = movie;
+    next();
   } else {
     next({ status: 404, message: "Movie Not Found" });
   }
@@ -30,7 +32,6 @@ router.param("movieId", async (req, res, next, movieId) => {
 router.post(
   "/:movieId/comments",
   passport.authenticate("jwt", { session: false }),
-  checkAdminUser,
   addCommentToMovie
 );
 
