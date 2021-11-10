@@ -23,6 +23,16 @@ const MovieSchema = Schema(
       { type: Schema.Types.ObjectId, ref: "Celebrity", required: true },
     ],
     description: String,
+    comments: [
+      {
+        user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+        message: { type: String, required: true },
+      },
+    ],
+    // usersWhoRated: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    // userRatings: [{ type: Number }],
+    // userRatingsSum: Number,
+    // avgRating: Number,
   },
   { timestamps: true }
 );
