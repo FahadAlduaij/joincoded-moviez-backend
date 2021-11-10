@@ -19,7 +19,9 @@ const MovieSchema = Schema(
 				required: true,
 			},
 		],
-		celebrities: [{ type: Schema.Types.ObjectId, ref: "Celebrity" }],
+		celebrities: [
+			{ type: Schema.Types.ObjectId, ref: "Celebrity", required: true },
+		],
 	},
 	{ timestamps: true }
 );
