@@ -1,11 +1,16 @@
 const express = require("express");
-const { signUp, signIn } = require("./user.controller");
 const router = express.Router();
-const passport = require("passport")
-//Register
-router.post("/signup", signUp)
+const passport = require("passport");
 
-//Login
-router.post("/signin", passport.authenticate("local", {session: false}),signIn)
+// Import Controllers
+const { signUp, signIn } = require("./user.controller");
 
-module.exports = router
+// Routes
+router.post("/signup", signUp);
+router.post(
+	"/signin",
+	passport.authenticate("local", { session: false }),
+	signIn
+);
+
+module.exports = router;
